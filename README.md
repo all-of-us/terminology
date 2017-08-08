@@ -5,7 +5,7 @@ project.
 
 ## Usage
 
-![workflow diagram](doc/overview.svg)
+![workflow diagram](doc/overview.png)
 
 1.  Export questionnaires from Vibrent's authoring tool and place them in
     `source/`.
