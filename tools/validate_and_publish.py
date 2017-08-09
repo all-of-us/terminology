@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """Validates input codebooks and questionnaires, and publishes valid results.
 
 Inputs:
@@ -13,7 +14,7 @@ Data Repository (RDR) using deploy.py.
 import logging
 import sys
 
-from main_util import configure_logging, get_parser
+from rdr_common.main_util import configure_logging, get_parser
 
 
 class _ValidationResult(object):
@@ -23,7 +24,7 @@ class _ValidationResult(object):
     self.warnings = []
 
   def merge(self, other):
-    self.error_messages += other.error_messages
+    self.errors += other.errors
 
   def log_all(self):
     for warning in self.warnings:
@@ -36,7 +37,7 @@ def main(commit_if_valid):
   codebook_paths = _download_codebooks()
   questionnaire_paths = _list_questionnaires()
   result = _validate_codebook(codebook_paths)
-  result.Merge(_validate_questionnaires(questionnaire_paths))
+  result.merge(_validate_questionnaires(questionnaire_paths))
   result.log_all()
   if result.errors:
     return False
@@ -45,12 +46,40 @@ def main(commit_if_valid):
   return True
 
 
+def _download_codebooks():
+  """TODO"""
+  return []
+
+
+def _list_questionnaires():
+  """TODO"""
+  return []
+
+
+def _validate_codebook(codebook_paths):
+  """TODO"""
+  result = _ValidationResult()
+  result.errors.append('No codebook checks performed.')
+  return result
+
+
+def _validate_questionnaires(questionnaire_paths):
+  """TODO"""
+  result = _ValidationResult()
+  result.errors.append('No questionnaire checks performed.')
+  return result
+
+
+def _commit(codebook_paths, questionnaire_paths):
+  """TODO"""
+
+
 if __name__ == '__main__':
   configure_logging()
   parser = get_parser()
   parser.add_argument(
       '--commit', action='store_true',
       help='If the inputs are valid, commit (publish) the results.')
-  args = parser.parse_arguments()
+  args = parser.parse_args()
   if not main(args.commit):
     sys.exit(1)
