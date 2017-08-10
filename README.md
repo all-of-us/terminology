@@ -8,7 +8,7 @@ project.
 ```shell
 virtualenv venv
 . venv/bin/activate
-pip install -e 'git+git@github.com:vanderbilt/pmi-data.git#egg=all-of-us-rdr'
+pip install -r requirements.txt
 ```
 
 ## Usage
